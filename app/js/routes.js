@@ -10,9 +10,9 @@ function Routes($stateProvider, $locationProvider, $urlRouterProvider) {
   $stateProvider
   .state('Home', {
     url: '/',
-    controller: 'ExampleCtrl as home',
+    controller: 'HomeCtrl as home',
     template: require('../views/home.html'),
-    title: 'Home'
+    title: '시스템 전체 담당자 권한'
   });
 
   $urlRouterProvider.otherwise('/');
