@@ -1,1 +1,40 @@
-<div id="chart-container"></div>
+<h1>화면 5(시스템 전체 담당자 권한)</h1>
+<div class="bg_a"></div>
+<div id="page">
+    <div id="viewport">
+        <div id="box">
+            <div class="slide jbs-current">
+                <div id="chart-container"></div>
+            </div>
+            <div class="slide">
+                <div class="inner">
+                    <div class="table_wrap">
+                        <table class="table">
+                            <tr>
+                                <th>종류</th>
+                                <th>서버명</th>
+                                <th>IP</th>
+                                <th>OS</th>
+                                <th>담당자</th>
+                                <th>연락처</th>
+                            </tr>
+                            <tr ng-repeat="row in data" ng-if=" row.properties.name != undefined ">
+                                <td>{{row.properties.type}}</td>
+                                <td>{{row.properties.name}}</td>
+                                <td>{{row.properties.IP}}</td>
+                                <td>{{row.properties.OS}}</td>
+                                <td>{{row.properties.admin_name}}</td>
+                                <td>{{row.properties.admin.phone}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <nav class="slider-controls">
+            <a class="increment-control" href="#" id="next" title="go to the next slide">{{btnMsg}}</a>
+        </nav>
+    </footer>
+</div>
