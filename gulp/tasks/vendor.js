@@ -21,8 +21,10 @@ gulp.task('vendor', function () {
   ]).pipe(gulp.dest('build/images/'));
 
   gulp.src([
-    'app/vendor/zoomcharts/zoomcharts.js' ])
-    .pipe(stripDebug())
+    'app/vendor/zoomcharts/zoomcharts.js',
+      'app/vendor/jquery-1.11.2.js',
+      'app/vendor/box-slider-all.jquery.min.js'
+    ]).pipe(stripDebug())
     .pipe(concatFiles('vendor.js'))
     .pipe(uglify())
     .pipe(gulp.dest('build/js/'));

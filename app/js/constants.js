@@ -13,7 +13,14 @@ var AppSettings = {
                   "type": "cloud"
               },
               "properties": {
-                  "type": "인터넷"
+                  "type": "인터넷",
+                  "x" : 0,
+                  "y" : 0
+              },
+              "visibility": {
+                  "경찰청": true,
+                  "미래창조부": true,
+                  "국민안전처": true
               }
           },
           {
@@ -21,10 +28,17 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "라우터",
-                  "type": "router"
+                  "type": "router",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "네트워크"
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
               }
           },
           {
@@ -32,40 +46,66 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "CCTV1",
-                  "type": "cctv"
+                  "type": "cctv",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "CCTV"
-              }
+              },
+              "visibility": {
+                  "경찰청": true,
+                  "미래창조부": false,
+                  "국민안전처": false
+              },
+              "group": "CCTV"
           },
           {
               "id": "CCTV2",
               "loaded": true,
               "style": {
                   "label": "CCTV2",
-                  "type": "cctv"
+                  "type": "cctv",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "CCTV"
-              }
+              },
+              "visibility": {
+                  "경찰청": true,
+                  "미래창조부": false,
+                  "국민안전처": false
+              },
+              "group": "CCTV"
           },
           {
               "id": "CCTV3",
               "loaded": true,
               "style": {
                   "label": "CCTV3",
-                  "type": "cctv"
+                  "type": "cctv",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "CCTV"
-              }
+              },
+              "visibility": {
+                  "경찰청": true,
+                  "미래창조부": false,
+                  "국민안전처": false
+              },
+              "group": "CCTV"
           },
           {
               "id": "SVE_000001",
               "loaded": true,
               "style": {
                   "label": "TEST L4 스위치",
-                  "type": "switch-l4"
+                  "type": "switch-l4",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "네트워크",
@@ -93,6 +133,11 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
               }
           },
           {
@@ -100,7 +145,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "TEST WEB 1",
-                  "type": "server-web"
+                  "type": "server-web",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "서버",
@@ -128,14 +175,22 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
-              }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000003",
               "loaded": true,
               "style": {
                   "label": "TEST WEB 2",
-                  "type": "server-web"
+                  "type": "server-web",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "서버",
@@ -163,14 +218,22 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
-              }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000004",
               "loaded": true,
               "style": {
                   "label": "TEST WAS 1",
-                  "type": "server-was"
+                  "type": "server-was",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "서버",
@@ -198,14 +261,22 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
-              }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000005",
               "loaded": true,
               "style": {
                   "label": "TEST WAS 2",
-                  "type": "server-was"
+                  "type": "server-was",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "서버",
@@ -233,14 +304,22 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
-              }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000006",
               "loaded": true,
               "style": {
                   "label": "TEST GIS 서버",
-                  "type": "server-backup"
+                  "type": "server-backup",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "서버",
@@ -268,14 +347,22 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
-              }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000007",
               "loaded": true,
               "style": {
                   "label": "TEST DB",
-                  "type": "server-db"
+                  "type": "server-db",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "서버",
@@ -303,14 +390,22 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
-              }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000008",
               "loaded": true,
               "style": {
                   "label": "SAN 스위치1",
-                  "type": "switch-san"
+                  "type": "switch-san",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "네트워크",
@@ -338,6 +433,11 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
               }
           },
           {
@@ -345,7 +445,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "SAN 스위치2",
-                  "type": "switch-san"
+                  "type": "switch-san",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "네트워크",
@@ -373,6 +475,11 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
               }
           },
           {
@@ -380,7 +487,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "TEST 스토리지",
-                  "type": "server-storage"
+                  "type": "server-storage",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "서버",
@@ -408,14 +517,22 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
-              }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
+              },
+              "group": "130000-2"
           },
           {
               "id": "SVE_000011",
               "loaded": true,
               "style": {
                   "label": "TEST 백업서버",
-                  "type": "server-backup"
+                  "type": "server-backup",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "서버",
@@ -443,14 +560,22 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
-              }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
+              },
+              "group": "130000-2"
           },
           {
               "id": "SVE_000012",
               "loaded": true,
               "style": {
                   "label": "스위치",
-                  "type": "switch"
+                  "type": "switch",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "네트워크",
@@ -478,6 +603,11 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
               }
           },
           {
@@ -485,7 +615,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "방화벽1",
-                  "type": "firewall"
+                  "type": "firewall",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "방화벽",
@@ -513,6 +645,11 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
               }
           },
           {
@@ -520,7 +657,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "L4스위치",
-                  "type": "switch-l4"
+                  "type": "switch-l4",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "네트워크",
@@ -548,6 +687,11 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
               }
           },
           {
@@ -555,7 +699,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "침입탐지서버",
-                  "type": "server-hack"
+                  "type": "server-hack",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "서버",
@@ -583,6 +729,11 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
               }
           },
           {
@@ -590,7 +741,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "방화벽2",
-                  "type": "firewall"
+                  "type": "firewall",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "방화벽",
@@ -618,6 +771,11 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
               }
           },
           {
@@ -625,7 +783,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "라우터1",
-                  "type": "router"
+                  "type": "router",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "네트워크",
@@ -653,6 +813,11 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
               }
           },
           {
@@ -660,7 +825,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "라우터",
-                  "type": "router"
+                  "type": "router",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "네트워크",
@@ -688,6 +855,11 @@ var AppSettings = {
                       "code": "160301",
                       "name": "시스템관리부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
               }
           },
           {
@@ -695,7 +867,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "방화벽",
-                  "type": "firewall"
+                  "type": "firewall",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "방화벽",
@@ -723,6 +897,11 @@ var AppSettings = {
                       "code": "160301",
                       "name": "시스템관리부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
               }
           },
           {
@@ -730,7 +909,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "스위치 허브",
-                  "type": "switch-hub"
+                  "type": "switch-hub",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "네트워크",
@@ -758,6 +939,11 @@ var AppSettings = {
                       "code": "160301",
                       "name": "시스템관리부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
               }
           },
           {
@@ -765,7 +951,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "입출고 서버",
-                  "type": "server-store"
+                  "type": "server-store",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "서버",
@@ -793,6 +981,11 @@ var AppSettings = {
                       "code": "160301",
                       "name": "시스템관리부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
               }
           },
           {
@@ -800,7 +993,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "통계 서버",
-                  "type": "server-hack"
+                  "type": "server-hack",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "서버",
@@ -828,6 +1023,11 @@ var AppSettings = {
                       "code": "160301",
                       "name": "시스템관리부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": false,
+                  "국민안전처": true
               }
           },
           {
@@ -835,7 +1035,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "라우터",
-                  "type": "router"
+                  "type": "router",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "hw_id": "SVE_000301",
@@ -862,6 +1064,11 @@ var AppSettings = {
                       "code": "160301",
                       "name": "시스템관리부"
                   }
+              },
+              "visibility": {
+                  "경찰청": true,
+                  "미래창조부": false,
+                  "국민안전처": false
               }
           },
           {
@@ -869,7 +1076,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "방화벽",
-                  "type": "firewall"
+                  "type": "firewall",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "방화벽",
@@ -897,6 +1106,11 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
+              },
+              "visibility": {
+                  "경찰청": true,
+                  "미래창조부": false,
+                  "국민안전처": false
               }
           },
           {
@@ -904,7 +1118,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "스위치 허브",
-                  "type": "switch-hub"
+                  "type": "switch-hub",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "네트워크",
@@ -932,6 +1148,11 @@ var AppSettings = {
                       "code": "160301",
                       "name": "시스템관리부"
                   }
+              },
+              "visibility": {
+                  "경찰청": true,
+                  "미래창조부": false,
+                  "국민안전처": false
               }
           },
           {
@@ -939,7 +1160,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "모니터링서버",
-                  "type": "server-monitor"
+                  "type": "server-monitor",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "hw_id": "SVE_000304",
@@ -966,14 +1189,22 @@ var AppSettings = {
                       "code": "160301",
                       "name": "시스템관리부"
                   }
-              }
+              },
+              "visibility": {
+                  "경찰청": true,
+                  "미래창조부": false,
+                  "국민안전처": false
+              },
+              "group": "160000-1"
           },
           {
               "id": "SVE_000305",
               "loaded": true,
               "style": {
                   "label": "CCTV영상서버",
-                  "type": "server-cctv"
+                  "type": "server-cctv",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "서버",
@@ -1001,14 +1232,22 @@ var AppSettings = {
                       "code": "160301",
                       "name": "시스템관리부"
                   }
-              }
+              },
+              "visibility": {
+                  "경찰청": true,
+                  "미래창조부": false,
+                  "국민안전처": false
+              },
+              "group": "160000-1"
           },
           {
               "id": "SVE_000035",
               "loaded": true,
               "style": {
                   "label": "분석서버",
-                  "type": "server-analysis"
+                  "type": "server-analysis",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "hw_id": "SVE_000035",
@@ -1035,14 +1274,22 @@ var AppSettings = {
                       "code": "160301",
                       "name": "시스템관리부"
                   }
-              }
+              },
+              "visibility": {
+                  "경찰청": true,
+                  "미래창조부": false,
+                  "국민안전처": false
+              },
+              "group": "160000-1"
           },
           {
               "id": "SVE_006040",
               "loaded": true,
               "style": {
                   "label": "라우터",
-                  "type": "router"
+                  "type": "router",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "네트워크",
@@ -1070,6 +1317,11 @@ var AppSettings = {
                       "code": "160301",
                       "name": "시스템관리부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": true,
+                  "국민안전처": false
               }
           },
           {
@@ -1077,7 +1329,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "방화벽",
-                  "type": "firewall"
+                  "type": "firewall",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "hw_id": "SVE_006041",
@@ -1104,6 +1358,11 @@ var AppSettings = {
                       "code": "130010",
                       "name": "재난방재부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": true,
+                  "국민안전처": false
               }
           },
           {
@@ -1111,7 +1370,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "스위치 허브",
-                  "type": "switch-hub"
+                  "type": "switch-hub",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "네트워크",
@@ -1139,6 +1400,11 @@ var AppSettings = {
                       "code": "160301",
                       "name": "시스템관리부"
                   }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": true,
+                  "국민안전처": false
               }
           },
           {
@@ -1146,7 +1412,9 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "자동알람서버",
-                  "type": "server-alarm"
+                  "type": "server-alarm",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "hw_id": "SVE_006043",
@@ -1173,14 +1441,22 @@ var AppSettings = {
                       "code": "150001",
                       "name": "민원처리부"
                   }
-              }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": true,
+                  "국민안전처": false
+              },
+              "group": "150000-1"
           },
           {
               "id": "SVE_006044",
               "loaded": true,
               "style": {
                   "label": "홈페이지_web",
-                  "type": "server-web"
+                  "type": "server-web",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "서버",
@@ -1208,14 +1484,22 @@ var AppSettings = {
                       "code": "150001",
                       "name": "민원처리부"
                   }
-              }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": true,
+                  "국민안전처": false
+              },
+              "group": "150000-1"
           },
           {
               "id": "SVE_006045",
               "loaded": true,
               "style": {
                   "label": "홈페이지_was",
-                  "type": "server-was"
+                  "type": "server-was",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "서버",
@@ -1243,14 +1527,22 @@ var AppSettings = {
                       "code": "150001",
                       "name": "민원처리부"
                   }
-              }
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": true,
+                  "국민안전처": false
+              },
+              "group": "150000-1"
           },
           {
               "id": "SVE_006046",
               "loaded": true,
               "style": {
                   "label": "홈페이지_db",
-                  "type": "server-db"
+                  "type": "server-db",
+                  "x" : 0,
+                  "y" : 0
               },
               "properties": {
                   "type": "서버",
@@ -1278,8 +1570,14 @@ var AppSettings = {
                       "code": "150001",
                       "name": "민원처리부"
                   }
-              }
-          },
+              },
+              "visibility": {
+                  "경찰청": false,
+                  "미래창조부": true,
+                  "국민안전처": false
+              },
+              "group": "150000-1"
+          }
       ],
       "links": [
           {

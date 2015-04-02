@@ -1,4 +1,4 @@
-<h1>화면 5(시스템 전체 담당자 권한)</h1>
+<h1>{{viewPage.label}}</h1>
 <div class="bg_a"></div>
 <div id="page">
     <div id="viewport">
@@ -18,7 +18,7 @@
                                 <th>담당자</th>
                                 <th>연락처</th>
                             </tr>
-                            <tr ng-repeat="row in data" ng-if=" row.properties.name != undefined ">
+                            <tr ng-repeat="row in data.nodes" ng-if=" row.properties.name != undefined ">
                                 <td>{{row.properties.type}}</td>
                                 <td>{{row.properties.name}}</td>
                                 <td>{{row.properties.IP}}</td>
@@ -36,5 +36,8 @@
         <nav class="slider-controls">
             <a class="increment-control" href="#" id="next" title="go to the next slide">{{btnMsg}}</a>
         </nav>
+        <div class="selectArea">
+            <select ng-model="viewPage" ng-options="item as item.label for item in viewList" ng-change="pageMove()"></select>
+        </div>
     </footer>
 </div>
