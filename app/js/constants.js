@@ -13,9 +13,7 @@ var AppSettings = {
                   "type": "cloud"
               },
               "properties": {
-                  "type": "인터넷",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "인터넷"
               },
               "visibility": {
                   "경찰청": true,
@@ -28,9 +26,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "라우터",
-                  "type": "router",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "router"
               },
               "properties": {
                   "type": "네트워크"
@@ -46,9 +42,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "CCTV1",
-                  "type": "cctv",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "cctv"
               },
               "properties": {
                   "type": "CCTV"
@@ -65,9 +59,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "CCTV2",
-                  "type": "cctv",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "cctv"
               },
               "properties": {
                   "type": "CCTV"
@@ -84,9 +76,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "CCTV3",
-                  "type": "cctv",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "cctv"
               },
               "properties": {
                   "type": "CCTV"
@@ -103,9 +93,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "TEST L4 스위치",
-                  "type": "switch-l4",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "switch-l4"
               },
               "properties": {
                   "type": "네트워크",
@@ -145,9 +133,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "TEST WEB 1",
-                  "type": "server-web",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-web"
               },
               "properties": {
                   "type": "서버",
@@ -188,9 +174,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "TEST WEB 2",
-                  "type": "server-web",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-web"
               },
               "properties": {
                   "type": "서버",
@@ -231,9 +215,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "TEST WAS 1",
-                  "type": "server-was",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-was"
               },
               "properties": {
                   "type": "서버",
@@ -274,9 +256,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "TEST WAS 2",
-                  "type": "server-was",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-was"
               },
               "properties": {
                   "type": "서버",
@@ -317,9 +297,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "TEST GIS 서버",
-                  "type": "server-backup",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-backup"
               },
               "properties": {
                   "type": "서버",
@@ -360,9 +338,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "TEST DB",
-                  "type": "server-db",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-db"
               },
               "properties": {
                   "type": "서버",
@@ -403,9 +379,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "SAN 스위치1",
-                  "type": "switch-san",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "switch-san"
               },
               "properties": {
                   "type": "네트워크",
@@ -445,9 +419,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "SAN 스위치2",
-                  "type": "switch-san",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "switch-san"
               },
               "properties": {
                   "type": "네트워크",
@@ -487,9 +459,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "TEST 스토리지",
-                  "type": "server-storage",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-storage"
               },
               "properties": {
                   "type": "서버",
@@ -530,9 +500,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "TEST 백업서버",
-                  "type": "server-backup",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-backup"
               },
               "properties": {
                   "type": "서버",
@@ -573,9 +541,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "스위치",
-                  "type": "switch",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "switch"
               },
               "properties": {
                   "type": "네트워크",
@@ -615,9 +581,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "방화벽1",
-                  "type": "firewall",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "firewall"
               },
               "properties": {
                   "type": "방화벽",
@@ -657,9 +621,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "L4스위치",
-                  "type": "switch-l4",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "switch-l4"
               },
               "properties": {
                   "type": "네트워크",
@@ -699,9 +661,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "침입탐지서버",
-                  "type": "server-hack",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-hack"
               },
               "properties": {
                   "type": "서버",
@@ -741,9 +701,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "방화벽2",
-                  "type": "firewall",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "firewall"
               },
               "properties": {
                   "type": "방화벽",
@@ -783,9 +741,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "라우터1",
-                  "type": "router",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "router"
               },
               "properties": {
                   "type": "네트워크",
@@ -825,9 +781,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "라우터",
-                  "type": "router",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "router"
               },
               "properties": {
                   "type": "네트워크",
@@ -867,9 +821,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "방화벽",
-                  "type": "firewall",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "firewall"
               },
               "properties": {
                   "type": "방화벽",
@@ -909,9 +861,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "스위치 허브",
-                  "type": "switch-hub",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "switch-hub"
               },
               "properties": {
                   "type": "네트워크",
@@ -951,9 +901,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "입출고 서버",
-                  "type": "server-store",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-store"
               },
               "properties": {
                   "type": "서버",
@@ -993,9 +941,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "통계 서버",
-                  "type": "server-hack",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-hack"
               },
               "properties": {
                   "type": "서버",
@@ -1035,11 +981,10 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "라우터",
-                  "type": "router",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "router"
               },
               "properties": {
+                  "type": "네트워크",
                   "hw_id": "SVE_000301",
                   "name": "라우터",
                   "IP": "210.136.71.102",
@@ -1076,9 +1021,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "방화벽",
-                  "type": "firewall",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "firewall"
               },
               "properties": {
                   "type": "방화벽",
@@ -1118,9 +1061,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "스위치 허브",
-                  "type": "switch-hub",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "switch-hub"
               },
               "properties": {
                   "type": "네트워크",
@@ -1160,11 +1101,10 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "모니터링서버",
-                  "type": "server-monitor",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-monitor"
               },
               "properties": {
+                  "type": "서버",
                   "hw_id": "SVE_000304",
                   "name": "모니터링서버",
                   "IP": "210.136.71.105",
@@ -1202,9 +1142,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "CCTV영상서버",
-                  "type": "server-cctv",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-cctv"
               },
               "properties": {
                   "type": "서버",
@@ -1245,11 +1183,10 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "분석서버",
-                  "type": "server-analysis",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-analysis"
               },
               "properties": {
+                  "type": "서버",
                   "hw_id": "SVE_000035",
                   "name": "분석서버",
                   "IP": "210.136.71.107",
@@ -1287,9 +1224,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "라우터",
-                  "type": "router",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "router"
               },
               "properties": {
                   "type": "네트워크",
@@ -1329,11 +1264,10 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "방화벽",
-                  "type": "firewall",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "firewall"
               },
               "properties": {
+                  "type": "방화벽",
                   "hw_id": "SVE_006041",
                   "name": "방화벽",
                   "IP": "160.234.23.130",
@@ -1370,9 +1304,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "스위치 허브",
-                  "type": "switch-hub",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "switch-hub"
               },
               "properties": {
                   "type": "네트워크",
@@ -1412,11 +1344,10 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "자동알람서버",
-                  "type": "server-alarm",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-alarm"
               },
               "properties": {
+                  "type": "서버",
                   "hw_id": "SVE_006043",
                   "name": "자동알람서버",
                   "IP": "160.234.23.132",
@@ -1454,9 +1385,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "홈페이지_web",
-                  "type": "server-web",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-web"
               },
               "properties": {
                   "type": "서버",
@@ -1497,9 +1426,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "홈페이지_was",
-                  "type": "server-was",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-was"
               },
               "properties": {
                   "type": "서버",
@@ -1540,9 +1467,7 @@ var AppSettings = {
               "loaded": true,
               "style": {
                   "label": "홈페이지_db",
-                  "type": "server-db",
-                  "x" : 0,
-                  "y" : 0
+                  "type": "server-db"
               },
               "properties": {
                   "type": "서버",

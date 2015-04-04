@@ -23,6 +23,10 @@ angular.element(document).ready(function() {
 
   angular.module('app').constant('AppSettings', require('./constants'));
 
+  angular.module('app').constant('addTEmpData', require('./constants2'));
+
+  angular.module('app').constant('helloData', require('./constants3'));
+
   angular.module('app').config(require('./routes'));
 
   angular.module('app').run(require('./on_run'));

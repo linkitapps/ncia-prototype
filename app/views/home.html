@@ -1,10 +1,14 @@
-<h1>{{viewPage.label}}</h1>
-<div class="bg_a"></div>
+<h1>
+    {{viewPage.label}}  <span ng-if="viewPage.desciprtion">({{viewPage.desciprtion}})</span>
+</h1>
+<div class="top_btn" ng-click='toggleModal()'>자원추가</div>
+<div ng-class="bgClass"></div>
 <div id="page">
     <div id="viewport">
         <div id="box">
             <div class="slide jbs-current">
                 <div id="chart-container"></div>
+                <button ng-click="graphLayout()" class="btn_graphLayout">{{graphMode=='static' ? '동적 레이아웃' : '정적 레이아웃'}}</button>
             </div>
             <div class="slide">
                 <div class="inner">
@@ -37,7 +41,47 @@
             <a class="increment-control" href="#" id="next" title="go to the next slide">{{btnMsg}}</a>
         </nav>
         <div class="selectArea">
-            <select ng-model="viewPage" ng-options="item as item.label for item in viewList" ng-change="pageMove()"></select>
+            <select ng-model="viewPage" ng-options="viewPage.label for viewPage in viewList" ng-change="pageMove()"></select>
         </div>
     </footer>
 </div>
+
+<modal-directive show='modalShown' width='95%' height='95%' >
+    <div>
+        <h2>자원 추가</h2>
+        <div class="table_wrapper">
+            <h3>장비목록에 추가되거나 수정된 사항을 반영합니다.</h3>
+            <table class="table">
+                <tr>
+                    <th>H/W ID</th>
+                    <th>명칭</th>
+                    <th>IP</th>
+                    <th>구축일</th>
+                    <th>아이디</th>
+                    <th>관리자</th>
+                    <th>부처</th>
+                    <th>부서</th>
+                    <th>OS</th>
+                    <th>위치</th>
+                </tr>
+                <tr ng-repeat="item in addTEmpData.nodes">
+                    <td><input type="text" ng-model="item.properties.hw_id" readonly/></td>
+                    <td><input type="text" ng-model="item.properties.name" readonly/></td>
+                    <td><input type="text" ng-model="item.properties.IP" readonly/></td>
+                    <td><input type="text" ng-model="item.properties.date" readonly /></td>
+                    <td><input type="text" ng-model="item.properties.admin_id" readonly/></td>
+                    <td><input type="text" ng-model="item.properties.admin_name" readonly/></td>
+                    <td><input type="text" class="half" ng-model="item.properties.department_code" readonly/><input type="checkbox" checked readonly> </td>
+                    <td><input type="text" class="half" ng-model="item.properties.division_code" readonly/><input type="checkbox" checked readonly></td>
+                    <td><input type="text" ng-model="item.properties.OS" readonly/></td>
+                    <td><input type="text" ng-model="item.properties.location" readonly/></td>
+                </tr>
+            </table>
+        </div>
+        <div class="btn_area">
+            <button class="blue" ng-click="addFn()">등록</button>
+            <button>수정</button>
+            <button>목록 </button>
+        </div>
+    </div>
+</modal-directive>
