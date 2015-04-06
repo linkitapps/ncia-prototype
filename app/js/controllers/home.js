@@ -121,6 +121,7 @@ function HomeCtrl($scope, $filter, $window, AppSettings, addTEmpData, helloData)
 
             $scope.t = new NetChart({
                 container: document.getElementById('chart-container'),
+                assetsUrlBase: './css',
                 data:
                 {
                     preloaded: helloData
@@ -209,6 +210,7 @@ function HomeCtrl($scope, $filter, $window, AppSettings, addTEmpData, helloData)
 
             $scope.t = new NetChart({
               container: document.getElementById('chart-container'),
+              assetsUrlBase: './css',
               data:
               {
                   preloaded: val

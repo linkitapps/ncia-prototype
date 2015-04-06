@@ -5,14 +5,13 @@
  */
 function Routes($stateProvider, $locationProvider, $urlRouterProvider) {
 
-  $locationProvider.html5Mode(true);
+  $locationProvider.html5Mode(false);
 
   $stateProvider
   .state('Home', {
     url: '/',
     controller: 'HomeCtrl as home',
-    template: require('../views/home.html'),
-    title: '시스템 전체 담당자 권한'
+    template: require('../views/home.html')
   });
 
   $urlRouterProvider.otherwise('/');
