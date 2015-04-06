@@ -142,7 +142,9 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
                 toolbar : {enabled : false},
                 events:{
                     onClick: function(event) {
+
                         event.preventDefault();
+
                         if(event.clickNode) {
                             $scope.$apply(function(){
                                 if(event.clickNode.type == 'police'){
@@ -154,15 +156,13 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
                                 }
 
                             });
-                            $scope.data = angular.copy(AppSettings.networkData);
+
                             //$timeout(function(){$scope.pageMove();},500)
                             $scope.pageMove();
                         }
                     }
 
-                },
-                legend:{ enabled: true }
-
+                }
             });
         }
         else {
@@ -262,7 +262,13 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
                       backgroundStyle:{fillColor:"#93B17F", lineColor:"blue"}
                   },
                   nodeRules:{"rule1":nodeStyle},
-                  link:{fillColor:"#93B17F"}
+                  link:{fillColor:"#93B17F"},
+                  nodeClasses:[
+                      {className:"국민안전처",style:{radius:20,fillColor:"#b6e473"}},
+                      {className:"미래창조부",style:{radius:20,fillColor:"#e59999"}},
+                      {className:"경찰청",style:{radius:20,fillColor:"#c099e5"}},
+                      {className:"CCTV",style:{radius:20,fillColor:"#e4be73"}}
+                  ]
               },
               layout:{
                   mode:$scope.graphMode,
@@ -283,10 +289,25 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
                               '</table></div>';
                       }
                   }
-              }
-            });
-
-            //$scope.t.settings.layout.mode = 'static';
+              },
+                legend:{
+                    enabled: true,
+                    panel : {
+                        side: "bottom",
+                        align: "center",
+                        margin: 10,
+                        padding: 0
+                    },
+                    //height : 20,
+                    lineSpacing: -10,
+                    marker : {
+                        alignment: "left",
+                        options: "right",
+                        lineColor: "#fff",
+                        size: 30
+                    }
+                }
+            })
         }
         else{
             angular.element(document.getElementById('chart-container')).html('Error')

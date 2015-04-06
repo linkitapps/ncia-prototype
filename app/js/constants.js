@@ -126,7 +126,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": false,
                   "국민안전처": true
-              }
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000002",
@@ -412,7 +413,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": false,
                   "국민안전처": true
-              }
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000009",
@@ -452,7 +454,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": false,
                   "국민안전처": true
-              }
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000010",
@@ -493,7 +496,7 @@ var AppSettings = {
                   "미래창조부": false,
                   "국민안전처": true
               },
-              "group": "130000-2"
+              "group": "130000-1"
           },
           {
               "id": "SVE_000011",
@@ -534,7 +537,7 @@ var AppSettings = {
                   "미래창조부": false,
                   "국민안전처": true
               },
-              "group": "130000-2"
+              "group": "130000-1"
           },
           {
               "id": "SVE_000012",
@@ -574,7 +577,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": false,
                   "국민안전처": true
-              }
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000013",
@@ -614,7 +618,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": false,
                   "국민안전처": true
-              }
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000014",
@@ -654,7 +659,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": false,
                   "국민안전처": true
-              }
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000015",
@@ -694,7 +700,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": false,
                   "국민안전처": true
-              }
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000016",
@@ -734,7 +741,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": false,
                   "국민안전처": true
-              }
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000017",
@@ -774,7 +782,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": false,
                   "국민안전처": true
-              }
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000045",
@@ -814,7 +823,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": false,
                   "국민안전처": true
-              }
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000046",
@@ -854,7 +864,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": false,
                   "국민안전처": true
-              }
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000047",
@@ -894,7 +905,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": false,
                   "국민안전처": true
-              }
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000048",
@@ -934,7 +946,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": false,
                   "국민안전처": true
-              }
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000049",
@@ -974,7 +987,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": false,
                   "국민안전처": true
-              }
+              },
+              "group": "130000-1"
           },
           {
               "id": "SVE_000301",
@@ -1014,7 +1028,8 @@ var AppSettings = {
                   "경찰청": true,
                   "미래창조부": false,
                   "국민안전처": false
-              }
+              },
+              "group": "160000-1"
           },
           {
               "id": "SVE_000302",
@@ -1054,7 +1069,8 @@ var AppSettings = {
                   "경찰청": true,
                   "미래창조부": false,
                   "국민안전처": false
-              }
+              },
+              "group": "160000-1"
           },
           {
               "id": "SVE_000303",
@@ -1094,7 +1110,8 @@ var AppSettings = {
                   "경찰청": true,
                   "미래창조부": false,
                   "국민안전처": false
-              }
+              },
+              "group": "160000-1"
           },
           {
               "id": "SVE_000304",
@@ -1257,7 +1274,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": true,
                   "국민안전처": false
-              }
+              },
+              "group": "150000-1"
           },
           {
               "id": "SVE_006041",
@@ -1297,7 +1315,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": true,
                   "국민안전처": false
-              }
+              },
+              "group": "150000-1"
           },
           {
               "id": "SVE_006042",
@@ -1337,7 +1356,8 @@ var AppSettings = {
                   "경찰청": false,
                   "미래창조부": true,
                   "국민안전처": false
-              }
+              },
+              "group": "150000-1"
           },
           {
               "id": "SVE_006043",
