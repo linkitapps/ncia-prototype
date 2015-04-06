@@ -6,20 +6,17 @@ var controllersModule = require('./_index');
 /**
  * @ngInject
  */
-function HomeCtrl($scope, $filter, $window, AppSettings, addTEmpData, helloData) {
+function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
 
     var sMode = 'scrollHorz3d';
     var isSaved = false;
 
     $scope.bgClass = 'bg_a';
 
-    (function(){
-        var userAgent = $window.navigator.userAgent;
-        if (/MSIE/i.test(userAgent)) {
-            sMode = 'fade';
-            $scope.bgClass = 'bg_a ie';
-        }
-    })();
+    if((navigator.appName == 'Microsoft Internet Explorer') || ((navigator.appName == 'Netscape') && (new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null))) {
+        sMode = 'fade';
+        $scope.bgClass = 'bg_a ie';
+    }
 
     $scope.layout1 = [
         {id : "SVE_000001","x" : 1200,"y" : -150},
@@ -105,7 +102,7 @@ function HomeCtrl($scope, $filter, $window, AppSettings, addTEmpData, helloData)
         var _val = $scope.viewPage.value;
         var _idx = $scope.viewPage.idx;
         var _arr = { 'nodes' : [], 'links' : [] };
-
+console.log(_idx);
         function posSet(){
             for(var pos in $scope.layout1){
                 if($scope.data.nodes[item].id == $scope.layout1[pos].id){
@@ -146,14 +143,16 @@ function HomeCtrl($scope, $filter, $window, AppSettings, addTEmpData, helloData)
                         $scope.$apply(function(){
                             $scope.viewPage = $scope.viewList[5];
                         });
-                        $scope.pageMove();
+                        $scope.data = angular.copy(AppSettings.networkData);
+                        $timeout(function(){$scope.pageMove();},500)
                     }
-                }
+
+                },
+                onError: function(message){message}
             });
         }
         else {
             $scope.data = angular.copy(AppSettings.networkData);
-
             if(_val != '전체'){
                 for(var item in $scope.data.nodes){
                     if($scope.data.nodes[item].visibility[_val]){
@@ -200,6 +199,35 @@ function HomeCtrl($scope, $filter, $window, AppSettings, addTEmpData, helloData)
         }
     }
 
+    function nodeStyle(node){
+        node.image = "images/"+node.type+".png";
+        node.fillColor = 'transparent';
+        var bgColor = 'transparent';
+
+        switch (node.data.group){
+            case 'CCTV' :
+                bgColor = '#e4be73';
+                break;
+            case '130000-1' :
+                bgColor = '#b6e473';
+                break;
+            case '130000-2' :
+                bgColor = '#99e5e1';
+                break;
+            case '160000-1' :
+                bgColor = '#c099e5';
+                break;
+            case '150000-1' :
+                bgColor = '#e59999';
+                break;
+            default :
+                bgColor = 'transparent';
+                break;
+        }
+
+        node.labelStyle = {textStyle:{font:"bold 26px NanumGothic", fillColor: "#000"}, backgroundStyle:{fillColor: bgColor}, padding : 2};
+
+    }
     /* 챠트 생성 */
     var makeGraph = function(val) {
         if($scope.btnMsg == '그래프로 보기 >>'){
@@ -232,16 +260,13 @@ function HomeCtrl($scope, $filter, $window, AppSettings, addTEmpData, helloData)
                   nodeContentsFunction: function(itemData, item){
                       if(itemData.properties.name){
                           return '<div class="tooltip"><table>' +
-                              '<tr><th>종류</th><th>서버명</th><th>IP</th></tr><tr>' +
-                              '<td>'+ (itemData.properties.type || '' ) +'</td>' +
-                              '<td>'+ (itemData.properties.name || '') +'</td>' +
-                              '<td>'+ (itemData.properties.IP || '') +'</td>' +
-                              '</tr></table>' +
-                              '<table><tr><th>OS</th><th>담당자</th><th>연락처</th></tr><tr>'+
-                              '<td>'+ (itemData.properties.OS || '') +'</td>' +
-                              '<td>'+ (itemData.properties.admin_name || '') +'</td>' +
-                              '<td>'+ (itemData.properties.admin.phone || '') +'</td>' +
-                              '</tr></table></div>';
+                                  '<tr><th>종류</th><td>'+ (itemData.properties.type || '' ) +'</td></tr>'+
+                              '<tr><th>서버명</th><td>'+ (itemData.properties.name || '' ) +'</td></tr>'+
+                              '<tr><th>IP</th><td>'+ (itemData.properties.IP || '' ) +'</td></tr>'+
+                              '<tr><th>OS</th><td>'+ (itemData.properties.OS || '' ) +'</td></tr>'+
+                              '<tr><th>담당자</th><td>'+ (itemData.properties.admin_name || '' ) +'</td></tr>'+
+                              '<tr><th>연락처</th><td>'+ (itemData.properties.admin.phone || '' ) +'</td></tr>'+
+                              '</table></div>';
                       }
                   }
               }
@@ -252,36 +277,6 @@ function HomeCtrl($scope, $filter, $window, AppSettings, addTEmpData, helloData)
         else{
             angular.element(document.getElementById('chart-container')).html('Error')
         }
-    }
-
-    function nodeStyle(node){
-        node.image = "images/"+node.type+".png";
-        node.fillColor = 'transparent';
-        var bgColor = 'transparent';
-
-        switch (node.data.group){
-            case 'CCTV' :
-                bgColor = '#e4be73';
-                break;
-            case '130000-1' :
-                bgColor = '#b6e473';
-                break;
-            case '130000-2' :
-                bgColor = '#99e5e1';
-                break;
-            case '160000-1' :
-                bgColor = '#c099e5';
-                break;
-            case '150000-1' :
-                bgColor = '#e59999';
-                break;
-            default :
-                bgColor = 'transparent';
-                break;
-        }
-
-        node.labelStyle = {textStyle:{font:"bold 26px NanumGothic", fillColor: "#000"}, backgroundStyle:{fillColor: bgColor}, padding : 2};
-
     }
 
     $scope.addFn = function(){
