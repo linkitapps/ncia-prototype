@@ -75,12 +75,12 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
         {value : '전체', label : '전체 네트워크 표시', desciprtion : '', idx : 0},
         {value : '경찰청', label : '화면 1(경찰청 서버담당자 권한)', desciprtion : '서버담당자인 일지매의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 1},
         {value : '경찰청', label : '화면 2(경찰청 시스템 담당자 권한)', desciprtion : '경찰청 시스템 전체 담당자인 장보고의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 2},
-        {value : '경찰청', label : '화면 3(네트워크 담당자 권한)', desciprtion : '네트워크 장비 담당자인 이수일의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 3},
-        {value : '경찰청', label : '화면 4(보안 담당자 권한)', desciprtion : '보안담당자인 나보안의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 4},
+        {value : '경찰청', label : '화면 3(경찰청 네트워크 담당자 권한)', desciprtion : '네트워크 장비 담당자인 이수일의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 3},
+        {value : '경찰청', label : '화면 4(경찰청 보안 담당자 권한)', desciprtion : '보안담당자인 나보안의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 4},
         {value : '전체', label : '화면 5(시스템 전체 담당자 권한)', desciprtion : '시스템 전체 담당자인 대조영의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 5},
-        {value : '미래창조부', label : '화면 6(서버 담당자 권한)', desciprtion : '미래창조과학부의 서버 담당자인 이순신의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 6},
-        {value : '미래창조부', label : '화면 7(네트워크 담당자 권한)', desciprtion : '네트워크 담당자인 이수일의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 7},
-        {value : '미래창조부', label : '화면 8(보안 담당자 권한)', desciprtion : '보안 담당자인 나보안의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 8}
+        {value : '미래창조부', label : '화면 6(미래창조부 서버 담당자 권한)', desciprtion : '미래창조과학부의 서버 담당자인 이순신의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 6},
+        {value : '미래창조부', label : '화면 7(미래창조부 네트워크 담당자 권한)', desciprtion : '네트워크 담당자인 이수일의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 7},
+        {value : '미래창조부', label : '화면 8(미래창조부 보안 담당자 권한)', desciprtion : '보안 담당자인 나보안의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 8}
     ];
 
     /* 기본 필터링 셋팅 */
@@ -97,12 +97,14 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
         $scope.pageMove();
     }
 
+
+
     /* 필터링 갱신 함수 */
     $scope.pageMove = function(){
         var _val = $scope.viewPage.value;
         var _idx = $scope.viewPage.idx;
         var _arr = { 'nodes' : [], 'links' : [] };
-console.log(_idx);
+
         function posSet(){
             for(var pos in $scope.layout1){
                 if($scope.data.nodes[item].id == $scope.layout1[pos].id){
@@ -139,16 +141,28 @@ console.log(_idx);
                 },
                 toolbar : {enabled : false},
                 events:{
-                    onClick: function() {
-                        $scope.$apply(function(){
-                            $scope.viewPage = $scope.viewList[5];
-                        });
-                        $scope.data = angular.copy(AppSettings.networkData);
-                        $timeout(function(){$scope.pageMove();},500)
+                    onClick: function(event) {
+                        event.preventDefault();
+                        if(event.clickNode) {
+                            $scope.$apply(function(){
+                                if(event.clickNode.type == 'police'){
+                                    $scope.viewPage = $scope.viewList[1];
+                                }else if(event.clickNode.type == 'future'){
+                                    $scope.viewPage = $scope.viewList[6];
+                                }else if(event.clickNode.type == 'cloud'){
+                                    $scope.viewPage = $scope.viewList[5];
+                                }
+
+                            });
+                            $scope.data = angular.copy(AppSettings.networkData);
+                            //$timeout(function(){$scope.pageMove();},500)
+                            $scope.pageMove();
+                        }
                     }
 
                 },
-                onError: function(message){message}
+                legend:{ enabled: true }
+
             });
         }
         else {
