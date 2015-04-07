@@ -8,7 +8,7 @@
         <div id="box">
             <div class="slide jbs-current">
                 <div id="chart-container"></div>
-                <button ng-click="graphLayout()" class="btn_graphLayout">{{graphMode=='static' ? '동적 레이아웃' : '정적 레이아웃'}}</button>
+                <button ng-click="graphLayout()" class="btn_graphLayout" ng-hide="viewPage.idx == 9">{{graphMode=='static' ? '동적 레이아웃' : '정적 레이아웃'}}</button>
             </div>
             <div class="slide">
                 <div class="inner">
@@ -37,7 +37,7 @@
         </div>
     </div>
     <footer>
-        <nav class="slider-controls">
+        <nav class="slider-controls" ng-hide="viewPage.idx == 9">
             <a class="increment-control" href="#" id="next" title="go to the next slide">{{btnMsg}}</a>
         </nav>
         <div class="selectArea">

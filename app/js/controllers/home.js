@@ -10,6 +10,7 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
 
     var sMode = 'scrollHorz3d';
     var isSaved = false;
+    var isSaved2 = false;
 
     $scope.bgClass = 'bg_a';
 
@@ -80,8 +81,30 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
         {value : '전체', label : '화면 5(시스템 전체 담당자 권한)', desciprtion : '시스템 전체 담당자인 대조영의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 5},
         {value : '미래창조부', label : '화면 6(미래창조부 서버 담당자 권한)', desciprtion : '미래창조과학부의 서버 담당자인 이순신의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 6},
         {value : '미래창조부', label : '화면 7(미래창조부 네트워크 담당자 권한)', desciprtion : '네트워크 담당자인 이수일의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 7},
-        {value : '미래창조부', label : '화면 8(미래창조부 보안 담당자 권한)', desciprtion : '보안 담당자인 나보안의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 8}
+        {value : '미래창조부', label : '화면 8(미래창조부 보안 담당자 권한)', desciprtion : '보안 담당자인 나보안의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 8},
+        {value : '퍼포먼스 테스트', label : '화면 9(퍼포먼스 테스트)', desciprtion : '노드 10,000개', idx : 9}
     ];
+
+    var testData = {nodes : [], links : []};
+
+    var count = 0;
+
+    for(var i = 0 ; i < 250; i++){
+        for (var item in AppSettings.networkData.nodes){
+            var _inItem = angular.copy(AppSettings.networkData.nodes[item]);
+            var _inLink = angular.copy(AppSettings.networkData.links[item])
+            testData.nodes.push(_inItem);
+            testData.links.push(_inLink);
+            _inItem.id = ''+_inItem.id+count;
+            _inLink.id = ''+_inLink.id+count;
+            _inLink.from = ''+_inLink.from+count;
+            _inLink.to = ''+_inLink.to+count;
+
+        }
+        count++ ;
+    }
+
+
 
     /* 기본 필터링 셋팅 */
     $scope.viewPage = $scope.viewList[0];
@@ -145,8 +168,11 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
 
                         event.preventDefault();
 
+                        $scope.t.remove();
+
                         if(event.clickNode) {
                             $scope.$apply(function(){
+                                //$scope.t.remove();
                                 if(event.clickNode.type == 'police'){
                                     $scope.viewPage = $scope.viewList[1];
                                 }else if(event.clickNode.type == 'future'){
@@ -157,13 +183,79 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
 
                             });
 
-                            //$timeout(function(){$scope.pageMove();},500)
+                            $timeout(function(){$scope.pageMove();},500)
                             $scope.pageMove();
                         }
                     }
 
                 }
             });
+        }
+        else if(_idx == 9) {
+            $scope.data = {};
+            //$scope.t = new NetChart({
+            //    container: document.getElementById('chart-container'),
+            //    assetsUrlBase: './css',
+            //    data: {
+            //        preloaded: testData
+            //    },
+            //    info:{
+            //        enabled: true,
+            //        nodeContentsFunction: function(itemData, item){
+            //            if(itemData.properties.name){
+            //                return '<div class="tooltip"><table>' +
+            //                    '<tr><th>종류</th><td>'+ (itemData.properties.type || '' ) +'</td></tr>'+
+            //                    '<tr><th>서버명</th><td>'+ (itemData.properties.name || '' ) +'</td></tr>'+
+            //                    '<tr><th>IP</th><td>'+ (itemData.properties.IP || '' ) +'</td></tr>'+
+            //                    '<tr><th>OS</th><td>'+ (itemData.properties.OS || '' ) +'</td></tr>'+
+            //                    '<tr><th>담당자</th><td>'+ (itemData.properties.admin_name || '' ) +'</td></tr>'+
+            //                    '<tr><th>연락처</th><td>'+ (itemData.properties.admin.phone || '' ) +'</td></tr>'+
+            //                    '</table></div>';
+            //            }
+            //        }
+            //    }
+            //})
+            $scope.t = new NetChart({
+                container: document.getElementById('chart-container'),
+                assetsUrlBase: './css',
+                data:
+                {
+                    preloaded: testData
+                },
+                style : {
+                    linkLabel:{
+                        backgroundStyle:{fillColor:"#93B17F", lineColor:"blue"}
+                    },
+                    nodeRules:{"rule1":nodeStyle},
+                    link:{fillColor:"#93B17F"},
+                    nodeClasses:[
+                        {className:"국민안전처",style:{radius:20,fillColor:"#b6e473"}},
+                        {className:"미래창조부",style:{radius:20,fillColor:"#e59999"}},
+                        {className:"경찰청",style:{radius:20,fillColor:"#c099e5"}},
+                        {className:"CCTV",style:{radius:20,fillColor:"#e4be73"}}
+                    ]
+                },
+                layout:{
+                    mode:$scope.graphMode,
+                    nodeSpacing: 20
+                },
+                toolbar : {enabled : false},
+                info:{
+                    enabled: true,
+                    nodeContentsFunction: function(itemData, item){
+                        if(itemData.properties.name){
+                            return '<div class="tooltip"><table>' +
+                                '<tr><th>종류</th><td>'+ (itemData.properties.type || '' ) +'</td></tr>'+
+                                '<tr><th>서버명</th><td>'+ (itemData.properties.name || '' ) +'</td></tr>'+
+                                '<tr><th>IP</th><td>'+ (itemData.properties.IP || '' ) +'</td></tr>'+
+                                '<tr><th>OS</th><td>'+ (itemData.properties.OS || '' ) +'</td></tr>'+
+                                '<tr><th>담당자</th><td>'+ (itemData.properties.admin_name || '' ) +'</td></tr>'+
+                                '<tr><th>연락처</th><td>'+ (itemData.properties.admin.phone || '' ) +'</td></tr>'+
+                                '</table></div>';
+                        }
+                    }
+                }
+            })
         }
         else {
             $scope.data = angular.copy(AppSettings.networkData);
@@ -318,15 +410,33 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
         alert('저장 되었습니다.');
         $scope.modalShown = false;
 
-        if(!isSaved){
+        if(!isSaved && $scope.viewPage.idx != 9){
             var _c = angular.copy($scope.addTEmpData);
-
             for(var item in _c.nodes){
                 AppSettings.networkData.nodes.push(_c.nodes[item]);
                 AppSettings.networkData.links.push(_c.links[item]);
             }
+            isSaved = true;
+        }else if(!isSaved2 && $scope.viewPage.idx == 9){
+            var count2 = 0 ;
+            for(var i = 0 ; i < 3; i++){
+                for (var item in addTEmpData.nodes){
+                    var _inItem = angular.copy(addTEmpData.nodes[item]);
+                    var _inLink = angular.copy(addTEmpData.links[item])
+                    testData.nodes.push(_inItem);
+                    testData.links.push(_inLink);
+                    _inItem.id = ''+_inItem.id+count2;
+                    _inLink.id = ''+_inLink.id+count2;
+                    _inLink.from = ''+_inLink.from+count2;
+                    _inLink.to = ''+_inLink.to+count2;
+
+                }
+                count2++ ;
+            }
+
+            isSaved2 = true;
         }
-        isSaved = true;
+
         $scope.pageMove();
     }
 
