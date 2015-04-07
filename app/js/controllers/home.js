@@ -93,16 +93,16 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
             var _inItem = angular.copy(AppSettings.networkData.nodes[item]);
             var _inLink = angular.copy(AppSettings.networkData.links[item]);
 
-            if(i!=0 && _inItem.id == 'root'){
-                testData.links.push(
-                    {
-                        "id": "rootLink"+i,
-                        "from": _inItem.id+i,
-                        "to": 'root'+(i-1),
-                        "type": "type1"
-                    }
-                );
-            }
+            //if(i!=0 && _inItem.id == 'root'){
+            //    testData.links.push(
+            //        {
+            //            "id": "rootLink"+i,
+            //            "from": _inItem.id+i,
+            //            "to": 'root'+(i-1),
+            //            "type": "type1"
+            //        }
+            //    );
+            //}
 
             testData.nodes.push(_inItem);
             testData.links.push(_inLink);
