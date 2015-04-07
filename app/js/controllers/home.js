@@ -87,24 +87,31 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
 
     var testData = {nodes : [], links : []};
 
-    var count = 0;
 
     for(var i = 0 ; i < 250; i++){
         for (var item in AppSettings.networkData.nodes){
             var _inItem = angular.copy(AppSettings.networkData.nodes[item]);
-            var _inLink = angular.copy(AppSettings.networkData.links[item])
+            var _inLink = angular.copy(AppSettings.networkData.links[item]);
+
+            if(i!=0 && _inItem.id == 'root'){
+                testData.links.push(
+                    {
+                        "id": "rootLink"+i,
+                        "from": _inItem.id+i,
+                        "to": 'root'+(i-1),
+                        "type": "type1"
+                    }
+                );
+            }
+
             testData.nodes.push(_inItem);
             testData.links.push(_inLink);
-            _inItem.id = ''+_inItem.id+count;
-            _inLink.id = ''+_inLink.id+count;
-            _inLink.from = ''+_inLink.from+count;
-            _inLink.to = ''+_inLink.to+count;
-
+            _inItem.id = ''+_inItem.id+i;
+            _inLink.id = ''+_inLink.id+i;
+            _inLink.from = ''+_inLink.from+i;
+            _inLink.to = ''+_inLink.to+i;
         }
-        count++ ;
     }
-
-
 
     /* 기본 필터링 셋팅 */
     $scope.viewPage = $scope.viewList[0];
@@ -168,9 +175,8 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
 
                         event.preventDefault();
 
-                        $scope.t.remove();
-
                         if(event.clickNode) {
+                            $scope.t.remove();
                             $scope.$apply(function(){
                                 //$scope.t.remove();
                                 if(event.clickNode.type == 'police'){
@@ -236,7 +242,7 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
                     ]
                 },
                 layout:{
-                    mode:$scope.graphMode,
+                    mode:'static',
                     nodeSpacing: 20
                 },
                 toolbar : {enabled : false},
@@ -343,45 +349,45 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
         if(val){
 
             $scope.t = new NetChart({
-              container: document.getElementById('chart-container'),
-              assetsUrlBase: './css',
-              data:
-              {
-                  preloaded: val
-              },
-              style : {
-                  linkLabel:{
-                      backgroundStyle:{fillColor:"#93B17F", lineColor:"blue"}
-                  },
-                  nodeRules:{"rule1":nodeStyle},
-                  link:{fillColor:"#93B17F"},
-                  nodeClasses:[
-                      {className:"국민안전처",style:{radius:20,fillColor:"#b6e473"}},
-                      {className:"미래창조부",style:{radius:20,fillColor:"#e59999"}},
-                      {className:"경찰청",style:{radius:20,fillColor:"#c099e5"}},
-                      {className:"CCTV",style:{radius:20,fillColor:"#e4be73"}}
-                  ]
-              },
-              layout:{
-                  mode:$scope.graphMode,
-                  nodeSpacing: 20
-              },
-              toolbar : {enabled : false},
-              info:{
-                  enabled: true,
-                  nodeContentsFunction: function(itemData, item){
-                      if(itemData.properties.name){
-                          return '<div class="tooltip"><table>' +
-                                  '<tr><th>종류</th><td>'+ (itemData.properties.type || '' ) +'</td></tr>'+
-                              '<tr><th>서버명</th><td>'+ (itemData.properties.name || '' ) +'</td></tr>'+
-                              '<tr><th>IP</th><td>'+ (itemData.properties.IP || '' ) +'</td></tr>'+
-                              '<tr><th>OS</th><td>'+ (itemData.properties.OS || '' ) +'</td></tr>'+
-                              '<tr><th>담당자</th><td>'+ (itemData.properties.admin_name || '' ) +'</td></tr>'+
-                              '<tr><th>연락처</th><td>'+ (itemData.properties.admin.phone || '' ) +'</td></tr>'+
-                              '</table></div>';
-                      }
-                  }
-              },
+                container: document.getElementById('chart-container'),
+                assetsUrlBase: './css',
+                data:
+                {
+                    preloaded: val
+                },
+                style : {
+                    linkLabel:{
+                        backgroundStyle:{fillColor:"#93B17F", lineColor:"blue"}
+                    },
+                    nodeRules:{"rule1":nodeStyle},
+                    link:{fillColor:"#93B17F"},
+                    nodeClasses:[
+                        {className:"국민안전처",style:{radius:20,fillColor:"#b6e473"}},
+                        {className:"미래창조부",style:{radius:20,fillColor:"#e59999"}},
+                        {className:"경찰청",style:{radius:20,fillColor:"#c099e5"}},
+                        {className:"CCTV",style:{radius:20,fillColor:"#e4be73"}}
+                    ]
+                },
+                layout:{
+                    mode:$scope.graphMode,
+                    nodeSpacing: 20
+                },
+                toolbar : {enabled : false},
+                info:{
+                    enabled: true,
+                    nodeContentsFunction: function(itemData, item){
+                        if(itemData.properties.name){
+                            return '<div class="tooltip"><table>' +
+                                '<tr><th>종류</th><td>'+ (itemData.properties.type || '' ) +'</td></tr>'+
+                                '<tr><th>서버명</th><td>'+ (itemData.properties.name || '' ) +'</td></tr>'+
+                                '<tr><th>IP</th><td>'+ (itemData.properties.IP || '' ) +'</td></tr>'+
+                                '<tr><th>OS</th><td>'+ (itemData.properties.OS || '' ) +'</td></tr>'+
+                                '<tr><th>담당자</th><td>'+ (itemData.properties.admin_name || '' ) +'</td></tr>'+
+                                '<tr><th>연락처</th><td>'+ (itemData.properties.admin.phone || '' ) +'</td></tr>'+
+                                '</table></div>';
+                        }
+                    }
+                },
                 legend:{
                     enabled: true,
                     panel : {
