@@ -6,11 +6,14 @@ var controllersModule = require('./_index');
 /**
  * @ngInject
  */
-function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
+function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createDataService) {
 
     var sMode = 'scrollHorz3d';
     var isSaved = false;
     var isSaved2 = false;
+    var oldNode = "";
+
+    var data = createDataService.createData(10000);
 
     $scope.bgClass = 'bg_a';
 
@@ -82,7 +85,8 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
         {value : '미래창조부', label : '화면 6(미래창조부 서버 담당자 권한)', desciprtion : '미래창조과학부의 서버 담당자인 이순신의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 6},
         {value : '미래창조부', label : '화면 7(미래창조부 네트워크 담당자 권한)', desciprtion : '네트워크 담당자인 이수일의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 7},
         {value : '미래창조부', label : '화면 8(미래창조부 보안 담당자 권한)', desciprtion : '보안 담당자인 나보안의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 8},
-        {value : '퍼포먼스 테스트', label : '화면 9(퍼포먼스 테스트)', desciprtion : '노드 10,000개', idx : 9}
+        {value : '퍼포먼스 테스트', label : '화면 9(퍼포먼스 테스트)', desciprtion : '노드 10,000개', idx : 9},
+        {value : '퍼포먼스 테스트', label : '화면 9(퍼포먼스 테스트 & 검색)', desciprtion : '노드 10,000개에 대한 검색 (data : A0~A9999)', idx : 10}
     ];
 
     var testData = {nodes : [], links : []};
@@ -98,7 +102,7 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
             //        {
             //            "id": "rootLink"+i,
             //            "from": _inItem.id+i,
-            //            "to": 'root'+(i-1),
+            //            "to": 'root0',
             //            "type": "type1"
             //        }
             //    );
@@ -125,9 +129,7 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
         $scope.graphMode == 'static' ? $scope.graphMode = 'dynamic' : $scope.graphMode = 'static';
 
         $scope.pageMove();
-    }
-
-
+    };
 
     /* 필터링 갱신 함수 */
     $scope.pageMove = function(){
@@ -173,12 +175,9 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
                 events:{
                     onClick: function(event) {
 
-                        event.preventDefault();
-
-                        if(event.clickNode) {
-                            $scope.t.remove();
+                        if (event.clickNode){
                             $scope.$apply(function(){
-                                //$scope.t.remove();
+                                $scope.t.remove();
                                 if(event.clickNode.type == 'police'){
                                     $scope.viewPage = $scope.viewList[1];
                                 }else if(event.clickNode.type == 'future'){
@@ -189,7 +188,7 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
 
                             });
 
-                            $timeout(function(){$scope.pageMove();},500)
+                            //$timeout(function(){$scope.pageMove();},500)
                             $scope.pageMove();
                         }
                     }
@@ -198,29 +197,9 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
             });
         }
         else if(_idx == 9) {
+
             $scope.data = {};
-            //$scope.t = new NetChart({
-            //    container: document.getElementById('chart-container'),
-            //    assetsUrlBase: './css',
-            //    data: {
-            //        preloaded: testData
-            //    },
-            //    info:{
-            //        enabled: true,
-            //        nodeContentsFunction: function(itemData, item){
-            //            if(itemData.properties.name){
-            //                return '<div class="tooltip"><table>' +
-            //                    '<tr><th>종류</th><td>'+ (itemData.properties.type || '' ) +'</td></tr>'+
-            //                    '<tr><th>서버명</th><td>'+ (itemData.properties.name || '' ) +'</td></tr>'+
-            //                    '<tr><th>IP</th><td>'+ (itemData.properties.IP || '' ) +'</td></tr>'+
-            //                    '<tr><th>OS</th><td>'+ (itemData.properties.OS || '' ) +'</td></tr>'+
-            //                    '<tr><th>담당자</th><td>'+ (itemData.properties.admin_name || '' ) +'</td></tr>'+
-            //                    '<tr><th>연락처</th><td>'+ (itemData.properties.admin.phone || '' ) +'</td></tr>'+
-            //                    '</table></div>';
-            //            }
-            //        }
-            //    }
-            //})
+
             $scope.t = new NetChart({
                 container: document.getElementById('chart-container'),
                 assetsUrlBase: './css',
@@ -262,6 +241,112 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
                     }
                 }
             })
+        }
+        else if(_idx == 10) {
+
+            $scope.data = {};
+
+            var dataObj = {};
+            var nodes = [];
+            var edges = [];
+
+            angular.forEach(data[0], function(arg,index) {
+                nodes.push({"id":arg.id,"value0":arg.value0, "name":arg.id});
+            });
+            angular.forEach(data[1], function(arg) {
+                if (arg.from != arg.to) {
+                    edges.push({"id":arg.id,"from":arg.from,"to":arg.to});
+                }
+            });
+
+            dataObj  = [nodes,edges];
+
+            $scope.search = function() {
+                if(data[0].filter(function (data) { return data.id == $scope.nodeName }).length > 0){
+                    $scope.t.remove();
+                    drawNewChart(dataObj);
+                }else{
+                    alert('"'+$scope.nodeName+'" 에 해당하는 노드가 없습니다.\n A0~A999 사이의 문자로 다시 입력해 주세요.')
+                }
+            };
+
+            var drawChart = function(data) {
+                $scope.t = new NetChart({
+                    container: document.getElementById("chart-container"),
+                    assetsUrlBase: './css',
+                    data: {
+                        preloaded: {
+                            nodes: data[0],
+                            links: data[1]
+                        }
+                    },
+                    navigation: {
+                        mode: "showall",
+                        initialNodes: ['A0'],
+                        focusNodeExpansionRadius: 5,
+                        focusNodeTailExpansionRadius: 5,
+                        numberOfFocusNodes: 1,
+                        expandOnClick: true
+                    },
+                    style:{
+                        nodeRules:{"rule1":nodeStyle2},
+                        linkRules:{"rule1":linkStyle2}
+                    },
+                    events:{
+                        onClick: clickEvent2
+                    },
+                    layout: {
+                        mode: "static"
+                    },
+                    toolbar: {
+                        enabled: false
+                    },
+                    credits: {
+                        enabled: false
+                    }
+                });
+            };
+
+            var drawNewChart = function(data) {
+                $scope.t = new NetChart({
+                    container: document.getElementById("chart-container"),
+                    assetsUrlBase: './css',
+                    data: {
+                        preloaded: {
+                            nodes: data[0],
+                            links: data[1]
+                        }
+                    },
+                    navigation: {
+                        mode: "focusnodes",
+                        initialNodes: [$scope.nodeName],
+                        focusNodeExpansionRadius: 5,
+                        focusNodeTailExpansionRadius: 5,
+                        numberOfFocusNodes: 1,
+                        expandOnClick: true,
+                        autoZoomOnFocus: false			//de-false
+                    },
+                    style:{
+                        nodeRules:{"rule1":nodeStyle2},
+                        linkRules:{"rule1":linkStyle2}
+                    },
+                    events:{
+                        onClick: clickEvent2
+                    },
+                    layout: {
+                        mode: "radial"		//"radial"
+                    },
+                    toolbar: {
+                        enabled: false
+                        // },
+                        // interaction: {
+                        // 	nodesMovable: true
+                    }
+                });
+            };
+
+            drawChart(dataObj);
+
         }
         else {
             $scope.data = angular.copy(AppSettings.networkData);
@@ -340,6 +425,43 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData) {
         node.labelStyle = {textStyle:{font:"bold 26px NanumGothic", fillColor: "#000"}, backgroundStyle:{fillColor: bgColor}, padding : 2};
 
     }
+
+    function nodeStyle2(node){
+        var image = null;
+        if (node.data.type == "person"){
+            // image = "/dvsl/data/net-chart/node-icons-male.png";
+            node.label = "Person";
+        }else{
+            // image = "/dvsl/data/net-chart/node-icons-case.png";
+            node.label = node.id;
+        }
+        var sliceNo = (node.data.foreign)? 1 : 0;
+        var sliceSize = 239;
+        node.image = image;
+        node.imageSlicing = [0, sliceNo*sliceSize,sliceSize,sliceSize];
+    }
+    function linkStyle2(link){
+        if (link.data.type == "share"){
+            link.fillColor = "limegreen";
+            // link.label = (link.data.shares_perc*100).toFixed(0) + "%";
+            link.radius = 5;
+        } else{
+            link.fillColor = "lightgray";
+            link.radius = 3;
+        }
+    }
+    function clickEvent2(event){
+
+        if (typeof event.clickNode != 'undefined') {
+            $scope.t.clearFocus();
+            $scope.t.showNode(event.clickNode.id);
+            $scope.t.addFocusNode(event.clickNode.id);
+
+            oldNode = event.clickNode.id;
+        }
+
+    };
+
     /* 챠트 생성 */
     var makeGraph = function(val) {
         if($scope.btnMsg == '그래프로 보기 >>'){

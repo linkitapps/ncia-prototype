@@ -95,6 +95,6 @@ var helloData = {
             "type": "type1"
         }
     ]
-}
+};
 
 module.exports = helloData;
