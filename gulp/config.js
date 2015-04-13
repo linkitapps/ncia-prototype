@@ -19,6 +19,11 @@ module.exports = {
     'dest': 'build/images'
   },
 
+  'data': {
+    'src' : 'app/data/**/*',
+    'dest': 'build/data'
+  },
+
   'fonts': {
     'src' : ['app/fonts/**/*'],
     'dest': 'build/fonts'

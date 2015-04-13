@@ -21,10 +21,22 @@ gulp.task('vendor', function () {
   ]).pipe(gulp.dest('build/images/'));
 
   gulp.src([
+    'app/data/**/*',
+  ]).pipe(gulp.dest('build/data/'));
+
+  gulp.src([
     'app/vendor/zoomcharts/zoomcharts.js',
       'app/vendor/jquery-1.11.2.js',
-      'app/vendor/box-slider-all.jquery.min.js'
-    ]).pipe(stripDebug())
+      'app/vendor/box-slider-all.jquery.min.js',
+    'app/vendor/three/Three.js',
+    'app/vendor/three/RequestAnimationFrame.js',
+    'app/vendor/triptych/Core/Triptych-1.1.4.js',
+    'app/vendor/triptych/GraphLoader/BasicGraphLoader-1.1.4.js',
+    'app/vendor/triptych/Visualizer/WebGLVisualizer-1.1.3.js',
+    'app/vendor/triptych/Controls/BasicControls-1.1.3.js',
+    'app/vendor/triptych/LayoutEngine/ForceDirectedLayoutEngine-1.1.2.js',
+    'app/vendor/triptych/LayoutEngine/MP2LayoutEngine-1.1.1.js'
+    ])//.pipe(stripDebug())
     .pipe(concatFiles('vendor.js'))
     .pipe(uglify())
     .pipe(gulp.dest('build/js/'));

@@ -1,7 +1,7 @@
 <h1>
     {{viewPage.label}}  <span ng-if="viewPage.desciprtion">({{viewPage.desciprtion}})</span>
 </h1>
-<div class="top_btn" ng-click='toggleModal()'>자원추가</div>
+<div class="top_btn" ng-click='toggleModal()' ng-hide="viewPage.idx == 10">자원추가</div>
 <div ng-class="bgClass"></div>
 <div id="page">
     <div id="viewport">

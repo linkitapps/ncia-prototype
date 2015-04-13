@@ -12,6 +12,24 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
     var isSaved = false;
     var isSaved2 = false;
     var oldNode = "";
+    var drawNewChart;
+    var drawChart;
+    var dataObj = {};
+    var nodes = [];
+    var edges = [];
+    var new3D = true;
+    window.space = null;
+
+
+    TRIPTYCH.WebGLVisualizer.prototype.initDefaultResources = function(node){
+        this.resources.defaultLineMaterial = new THREE.LineBasicMaterial( { color: 0x000000, opacity: 1.0 } );
+        this.resources.defaultLineSelectedMaterial = new THREE.LineBasicMaterial( { color: 0xffff00, opacity: 1.0 } );
+        this.resources.defaultLineHighlightedMaterial = new THREE.LineBasicMaterial( { color: 0x00ffff, opacity: 1.0 } );
+        this.resources.defaultSurfaceMaterial = new THREE.MeshPhongMaterial( { color: 0x000000,  specular:0xbbaa99, shininess:50, shading: THREE.SmoothShading } );
+        this.resources.defaultSurfaceSelectedMaterial = new THREE.MeshPhongMaterial( { color: 0xffff00, specular:0xbbaa99, shininess:50, shading: THREE.SmoothShading  } );
+        this.resources.defaultSurfaceHighlightedMaterial = new THREE.MeshPhongMaterial( { color: 0x00ffff, specular:0xbbaa99, shininess:50, shading: THREE.SmoothShading } );
+        console.log(TRIPTYCH.WebGLVisualizer.prototype);
+    };
 
     var data = createDataService.createData(10000);
 
@@ -86,7 +104,8 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
         {value : '미래창조부', label : '화면 7(미래창조부 네트워크 담당자 권한)', desciprtion : '네트워크 담당자인 이수일의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 7},
         {value : '미래창조부', label : '화면 8(미래창조부 보안 담당자 권한)', desciprtion : '보안 담당자인 나보안의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 8},
         {value : '퍼포먼스 테스트', label : '화면 9(퍼포먼스 테스트)', desciprtion : '노드 10,000개', idx : 9},
-        {value : '퍼포먼스 테스트', label : '화면 10(퍼포먼스 테스트 & 검색)', desciprtion : '노드 10,000개에 대한 검색 (data : A0~A9999)', idx : 10}
+        {value : '퍼포먼스 테스트', label : '화면 10(퍼포먼스 테스트 & 검색)', desciprtion : '노드 10,000개에 대한 검색 (data : A0~A9999)', idx : 10},
+        {value : '3D 네트워크 시각화', label : '화면11(3D 네트워크 시각화)', desciprtion : '', idx : 11}
     ];
 
     var testData = {nodes : [], links : []};
@@ -133,6 +152,7 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
 
     /* 필터링 갱신 함수 */
     $scope.pageMove = function(){
+
         var _val = $scope.viewPage.value;
         var _idx = $scope.viewPage.idx;
         var _arr = { 'nodes' : [], 'links' : [] };
@@ -175,7 +195,7 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
                 events:{
                     onClick: function(event) {
 
-                        if (event.clickNode){
+                        if (typeof event.clickNode != 'undefined') {
                             $scope.$apply(function(){
                                 $scope.t.remove();
                                 if(event.clickNode.type == 'police'){
@@ -246,10 +266,6 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
 
             $scope.data = {};
 
-            var dataObj = {};
-            var nodes = [];
-            var edges = [];
-
             angular.forEach(data[0], function(arg,index) {
                 nodes.push({"id":arg.id,"value0":arg.value0, "name":arg.id});
             });
@@ -270,7 +286,7 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
                 }
             };
 
-            var drawChart = function(data) {
+            drawChart = function(data) {
                 $scope.t = new NetChart({
                     container: document.getElementById("chart-container"),
                     assetsUrlBase: './css',
@@ -293,7 +309,7 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
                         linkRules:{"rule1":linkStyle2}
                     },
                     events:{
-                        onClick: clickEvent2
+                        onClick: clickEvent
                     },
                     layout: {
                         mode: "static"
@@ -307,46 +323,83 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
                 });
             };
 
-            var drawNewChart = function(data) {
-                $scope.t = new NetChart({
-                    container: document.getElementById("chart-container"),
-                    assetsUrlBase: './css',
-                    data: {
-                        preloaded: {
-                            nodes: data[0],
-                            links: data[1]
+            drawNewChart = function(data,type,eventsId) {
+                var initialNode = $scope.nodeName;
+                if (type == 2) {
+                    initialNode = eventsId;
+                }
+                $(document).ready(function() {
+                    $scope.t = new NetChart({
+                        container: document.getElementById("chart-container"),
+                        assetsUrlBase: './css',
+                        data: {
+                            preloaded: {
+                                nodes: data[0],
+                                links: data[1]
+                            }
+                        },
+                        navigation: {
+                            mode: "focusnodes",
+                            initialNodes: [initialNode.toString()],
+                            focusNodeExpansionRadius: 5,
+                            focusNodeTailExpansionRadius: 5,
+                            numberOfFocusNodes: 1,
+                            expandOnClick: true,
+                            autoZoomOnFocus: true			//de-false
+                        },
+                        style:{
+                            nodeRules:{"rule1":nodeStyle2},
+                            linkRules:{"rule1":linkStyle2}
+                        },
+                        events:{
+                            onClick: clickEvent2
+                        },
+                        layout: {
+                            mode: "radial"		//"radial"
+                        },
+                        toolbar: {
+                            enabled: false
+                            // },
+                            // interaction: {
+                            // 	nodesMovable: true
+                        },
+                        credits: {
+                            enabled: false
                         }
-                    },
-                    navigation: {
-                        mode: "focusnodes",
-                        initialNodes: [$scope.nodeName],
-                        focusNodeExpansionRadius: 5,
-                        focusNodeTailExpansionRadius: 5,
-                        numberOfFocusNodes: 1,
-                        expandOnClick: true,
-                        autoZoomOnFocus: false			//de-false
-                    },
-                    style:{
-                        nodeRules:{"rule1":nodeStyle2},
-                        linkRules:{"rule1":linkStyle2}
-                    },
-                    events:{
-                        onClick: clickEvent2
-                    },
-                    layout: {
-                        mode: "radial"		//"radial"
-                    },
-                    toolbar: {
-                        enabled: false
-                        // },
-                        // interaction: {
-                        // 	nodesMovable: true
-                    }
+                    });
                 });
             };
 
             drawChart(dataObj);
 
+        }
+        else if(_idx == 11) {
+            if($scope.t) $scope.t.remove();
+            if(new3D){
+                $.ajax({
+                    type: "GET",
+                    url: "./data/test.xgmml",
+                    dataType: "xml",
+                    success: function(data) {
+                        window.loader = new TRIPTYCH.BasicGraphLoader();
+                        window.graph = loader.loadXGMML(data);
+                        window.visualizer = new TRIPTYCH.WebGLVisualizer();
+                        window.layoutEngine = new TRIPTYCH.ForceDirectedLayoutEngine();
+                        window.controls = new TRIPTYCH.BasicControls();
+                        window.space = new TRIPTYCH.Space( graph,
+                            visualizer,
+                            layoutEngine,
+                            controls
+                        );
+                        space.init();
+                        animate();
+                    }
+
+                });
+                new3D = false;
+            }
+            else {
+            }
         }
         else {
             $scope.data = angular.copy(AppSettings.networkData);
@@ -393,6 +446,16 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
             }
 
             makeGraph($scope.data);
+        }
+
+        function setCameraPosition(){
+            controls.camera.position.set( 0, 700, 105);
+            controls.camera.up.set(0,0,1);
+        }
+
+        function animate() {
+            requestAnimationFrame( animate );
+            space.update();
         }
     }
 
@@ -450,6 +513,15 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
             link.radius = 3;
         }
     }
+    function clickEvent(event){
+
+        if (typeof event.clickNode != 'undefined') {
+            $scope.t.remove();
+            drawNewChart(dataObj,2,event.clickNode.id);
+        }
+
+    };
+
     function clickEvent2(event){
 
         if (typeof event.clickNode != 'undefined') {
@@ -590,6 +662,32 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
     $scope.toggleModal = function() {
         $scope.modalShown = !$scope.modalShown;
     };
+
+    function wheelCtrl(event){
+
+
+        function handle(delta) {
+            if (delta < 0) controls.zoom = 1;
+            else controls.zoom = -1;
+            setTimeout(function(){
+                controls.zoom = 0;
+            },200)
+        }
+
+        if($scope.viewPage.idx == 11) {
+            var delta = 0;
+            if (!event) event = window.event;
+            if (event.wheelDelta) {
+                delta = event.wheelDelta/120;
+                if (window.opera) delta = -delta;
+            } else if (event.detail) delta = -event.detail/3;
+            if (delta) handle(delta);
+        }
+
+    }
+    /* Initialization code. */
+    if (window.addEventListener) window.addEventListener('DOMMouseScroll', wheelCtrl, false);
+    window.onmousewheel = document.onmousewheel = wheelCtrl;
 
     $scope.pageMove();
 
