@@ -60,6 +60,7 @@ function createDataService($q, $http) {
         var value0 = Math.floor(Math.random()*100);
         link.push({'id': from + to ,'from': from, 'to': to, 'value0': value0});
       }
+
     }
 
     $('#log0').val(JSON.stringify(node));

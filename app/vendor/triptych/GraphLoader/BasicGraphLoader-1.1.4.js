@@ -83,9 +83,10 @@ BEL-Cytoscape XGMML
 				if (loader.typeFilter == "none" || $.inArray(type, loader.typeFilter) != -1){
 					node = new TRIPTYCH.Node(nodeId);
 					node.type = type || "unknown";
+					node.group = $(this).attr('group') || "unknown";
 					node.label = label || $(this).attr('label');
 					node.identifier = identifier || node.label;
-				
+
 					graph.addNode(node);
 				}
 			}

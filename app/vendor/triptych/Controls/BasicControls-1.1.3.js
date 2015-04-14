@@ -120,6 +120,7 @@ TRIPTYCH.BasicControls = function ( camera, domElement, visualizer ) {
 		//this.domElement.addEventListener( 'mousedown', mousedown, false );
 		//this.domElement.addEventListener( 'mouseup', mouseup, false );
 
+
 		$('#chart-container').mousemove(mousemove);
 		$('#chart-container').mousedown(mousedown);
 		$('#chart-container').mouseup(mouseup);
@@ -446,7 +447,7 @@ TRIPTYCH.BasicControls = function ( camera, domElement, visualizer ) {
 	};
 
 	function mousedown( event ) {
-		if ( ! _this.enabled ) return;
+		if ( ! _this.enabled && ! window.bindEvent ) return;
 		_this.flyMode = false;
 		event.preventDefault();
 		event.stopPropagation();
@@ -461,7 +462,7 @@ TRIPTYCH.BasicControls = function ( camera, domElement, visualizer ) {
 	};
 
 	function mousemove( event ) {
-		mousemovexy(event.clientX, event.clientY);
+		if(window.bindEvent) mousemovexy(event.clientX, event.clientY);
 	};
 
 	
@@ -492,7 +493,7 @@ TRIPTYCH.BasicControls = function ( camera, domElement, visualizer ) {
 
 	function mouseup( event ) {
 
-		if ( ! _this.enabled ) return;
+		if ( ! _this.enabled || ! window.bindEvent) return;
 
 		event.preventDefault();
 		event.stopPropagation();

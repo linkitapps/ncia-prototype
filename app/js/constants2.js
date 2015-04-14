@@ -149,6 +149,6 @@ var addTEmpData = {
             "type": "type1"
         }
     ]
-};
+}
 
 module.exports = addTEmpData;

@@ -1,15 +1,16 @@
 <h1>
     {{viewPage.label}}  <span ng-if="viewPage.desciprtion">({{viewPage.desciprtion}})</span>
 </h1>
-<div class="top_btn" ng-click='toggleModal()' ng-hide="viewPage.idx == 10">자원추가</div>
+<div class="top_btn" ng-click='toggleModal()' ng-hide="viewPage.idx == 9 || viewPage.idx == 11 || viewPage.idx == 12">자원추가</div>
 <div ng-class="bgClass"></div>
 <div id="page">
     <div id="viewport">
         <div id="box">
             <div class="slide jbs-current">
                 <div id="chart-container"></div>
-                <button ng-click="graphLayout()" class="btn_graphLayout" ng-hide="viewPage.idx == 9 || viewPage.idx == 10">{{graphMode=='static' ? '동적 레이아웃' : '정적 레이아웃'}}</button>
-                <div class="searchBox" ng-show="viewPage.idx == 10">
+                <button ng-click="graphLayout()" class="btn_graphLayout" ng-hide="viewPage.idx == 9 || viewPage.idx == 10 || viewPage.idx == 11 || viewPage.idx == 12">{{graphMode=='static' ? '동적 레이아웃' : '정적 레이아웃'}}</button>
+                <button ng-click="graphLayout2()" class="btn_graphLayout" ng-show="viewPage.idx == 9">{{graphMode2=='preset' ? '동적 레이아웃' : '정적 레이아웃'}}</button>
+                <div class="searchBox" ng-show="viewPage.idx == 11">
                     <input type="text" ng-model='nodeName'>
                     <button ng-click="search()">SERACH</button>
                     <button ng-click="pageMove()">RESET</button>
@@ -42,11 +43,11 @@
         </div>
     </div>
     <footer>
-        <nav class="slider-controls" ng-hide="viewPage.idx == 9 || viewPage.idx == 10">
+        <nav class="slider-controls" ng-hide="viewPage.idx == 9 || viewPage.idx == 10 || viewPage.idx == 11 || viewPage.idx == 12">
             <a class="increment-control" href="#" id="next" title="go to the next slide">{{btnMsg}}</a>
         </nav>
         <div class="selectArea">
-            <select ng-model="viewPage" ng-options="viewPage.label for viewPage in viewList" ng-change="pageMove()"></select>
+            <select ng-model="viewPage" ng-options="viewPage.label for viewPage in viewList" ng-change="pageMove();"></select>
         </div>
     </footer>
 </div>
@@ -90,3 +91,7 @@
         </div>
     </div>
 </modal-directive>
+
+<div class="tooltip2">
+
+</div>

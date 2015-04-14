@@ -14,9 +14,32 @@
    limitations under the License.
 */
 
-
 function makeColor2(node){
-	return new THREE.MeshPhongMaterial( { color: 0xffffff,  specular:0xbbaa99, shininess:50, shading: THREE.SmoothShading } )
+
+	var bgColor;
+
+	switch (node.group){
+		case 'CCTV' :
+			bgColor = 0xe4be73;
+			break;
+		case '130000-1' :
+			bgColor = 0xb6e473;
+			break;
+		case '130000-2' :
+			bgColor = 0x99e5e1;
+			break;
+		case '160000-1' :
+			bgColor = 0xc099e5;
+			break;
+		case '150000-1' :
+			bgColor = 0xe59999;
+			break;
+		default :
+			bgColor = 0xffffff;
+			break;
+	}
+
+	return new THREE.MeshPhongMaterial( { color: bgColor,  specular:0xbbaa99, shininess:50, shading: THREE.SmoothShading } )
 }
 
 TRIPTYCH.WebGLVisualizer = function(){
@@ -125,12 +148,42 @@ TRIPTYCH.WebGLNodeDisplayer.prototype = {
 	
 	makeMain : function(node){
 		var geometry = new THREE.SphereGeometry( 1, 0.32, 0.16 );
-		console.log(node);
-		return this.visualizer.makeMesh(node.position, makeColor2(node), geometry, 10);
+		return this.visualizer.makeMesh(node.position, makeColor2(node), geometry, 15);
 	},
 	
 	makeLabel : function(node){
- 		 return this.visualizer.makeTextSprite(node.label, 36, "#000000");
+
+		var txtColor;
+		var txtSize;
+
+		switch (node.group){
+			case 'CCTV' :
+				txtColor = '#5e4006';
+				txtSize = 42;
+				break;
+			case '130000-1' :
+				txtColor = '#2c4704';
+				txtSize = 42;
+				break;
+			case '130000-2' :
+				txtColor = '#035954';
+				txtSize = 42;
+				break;
+			case '160000-1' :
+				txtColor = '#2e0555';
+				txtSize = 42;
+				break;
+			case '150000-1' :
+				txtColor = '#620909';
+				txtSize = 42;
+				break;
+			default :
+				txtColor = '#000000';
+				txtSize = 50;
+				break;
+		}
+
+ 		 return this.visualizer.makeTextSprite(node.label, 36, txtColor);
 	},
 	
 	highlight : function(node){
@@ -463,6 +516,7 @@ TRIPTYCH.WebGLVisualizer.prototype.updateLights = function(graph){
 //--------------------------------------
 
 TRIPTYCH.WebGLVisualizer.prototype.updateNode = function(node){
+	//console.log(node);
 	if (!node.displayer){
 		node.displayer = this.getNodeDisplayer(node);
 	}
@@ -515,7 +569,6 @@ TRIPTYCH.WebGLVisualizer.prototype.makeMesh = function (position, material, geom
 	var mesh = new THREE.Mesh( geometry, material );
 	mesh.position.copy(position);
 	mesh.scale.x = mesh.scale.y = mesh.scale.z = scale;
-	console.log(mesh)
 	return mesh;
 	
 };
@@ -530,12 +583,13 @@ TRIPTYCH.WebGLVisualizer.prototype.getPowerOfTwo = function (value, pow) {
 
 
 TRIPTYCH.WebGLVisualizer.prototype.makeTextSprite = function (text, size, color, backGroundColor, backgroundMargin) {
+
 	if(!backgroundMargin) backgroundMargin = 50;
 
 	var canvas = document.createElement("canvas");
 
 	var context = canvas.getContext("2d");
-	context.font = size + "pt Arial";
+	context.font = "bold " + size + "pt NanumGothic";
 
 	var textWidth = context.measureText(text).width;
 	
@@ -544,7 +598,7 @@ TRIPTYCH.WebGLVisualizer.prototype.makeTextSprite = function (text, size, color,
 	canvas.width = dimension;
 	canvas.height = dimension;
 	context = canvas.getContext("2d");
-	context.font = size + "pt Arial";
+	context.font = "bold " + size + "pt NanumGothic";
 /*
 	if(backGroundColor) {
 		context.fillStyle = backGroundColor;
@@ -559,6 +613,7 @@ TRIPTYCH.WebGLVisualizer.prototype.makeTextSprite = function (text, size, color,
 	context.textBaseline = "middle";
 	context.fillStyle = color;
 	context.fillText(text, canvas.width / 2, canvas.height / 2);
+
 
 
 	var texture = new THREE.Texture(canvas);

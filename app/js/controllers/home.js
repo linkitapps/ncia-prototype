@@ -6,7 +6,7 @@ var controllersModule = require('./_index');
 /**
  * @ngInject
  */
-function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createDataService) {
+function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createDataService, demoGraph, demoSettings) {
 
     var sMode = 'scrollHorz3d';
     var isSaved = false;
@@ -18,8 +18,9 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
     var nodes = [];
     var edges = [];
     var new3D = true;
+    window.new3Dchart = null;
     window.space = null;
-
+    window.bindEvent = false;
 
     TRIPTYCH.WebGLVisualizer.prototype.initDefaultResources = function(node){
         this.resources.defaultLineMaterial = new THREE.LineBasicMaterial( { color: 0x000000, opacity: 1.0 } );
@@ -28,7 +29,6 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
         this.resources.defaultSurfaceMaterial = new THREE.MeshPhongMaterial( { color: 0x000000,  specular:0xbbaa99, shininess:50, shading: THREE.SmoothShading } );
         this.resources.defaultSurfaceSelectedMaterial = new THREE.MeshPhongMaterial( { color: 0xffff00, specular:0xbbaa99, shininess:50, shading: THREE.SmoothShading  } );
         this.resources.defaultSurfaceHighlightedMaterial = new THREE.MeshPhongMaterial( { color: 0x00ffff, specular:0xbbaa99, shininess:50, shading: THREE.SmoothShading } );
-        console.log(TRIPTYCH.WebGLVisualizer.prototype);
     };
 
     var data = createDataService.createData(10000);
@@ -103,9 +103,10 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
         {value : '미래창조부', label : '화면 6(미래창조부 서버 담당자 권한)', desciprtion : '미래창조과학부의 서버 담당자인 이순신의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 6},
         {value : '미래창조부', label : '화면 7(미래창조부 네트워크 담당자 권한)', desciprtion : '네트워크 담당자인 이수일의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 7},
         {value : '미래창조부', label : '화면 8(미래창조부 보안 담당자 권한)', desciprtion : '보안 담당자인 나보안의 권한에 맞는 시스템 구성과 시스템 정보 확인 가능', idx : 8},
-        {value : '퍼포먼스 테스트', label : '화면 9(퍼포먼스 테스트)', desciprtion : '노드 10,000개', idx : 9},
-        {value : '퍼포먼스 테스트', label : '화면 10(퍼포먼스 테스트 & 검색)', desciprtion : '노드 10,000개에 대한 검색 (data : A0~A9999)', idx : 10},
-        {value : '3D 네트워크 시각화', label : '화면11(3D 네트워크 시각화)', desciprtion : '', idx : 11}
+        {value : '전체', label : '화면 9(권한 별 그룹핑 화면)', desciprtion : '시스템 전체 담당자 권한', idx : 9},
+        {value : '퍼포먼스 테스트', label : '화면 10(퍼포먼스 테스트)', desciprtion : '노드 10,000개', idx : 10},
+        {value : '퍼포먼스 테스트', label : '화면 11(퍼포먼스 테스트 & 검색)', desciprtion : '노드 10,000개에 대한 검색 (data : A0~A9999)', idx : 11},
+        {value : '3D 네트워크 시각화', label : '화면12(3D 네트워크 시각화)', desciprtion : '', idx : 12}
     ];
 
     var testData = {nodes : [], links : []};
@@ -144,14 +145,39 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
 
     $scope.graphMode = 'static';
 
+    $scope.graphMode2 = 'preset';
+
     $scope.graphLayout = function() {
         $scope.graphMode == 'static' ? $scope.graphMode = 'dynamic' : $scope.graphMode = 'static';
 
         $scope.pageMove();
     };
 
+    $scope.graphLayout2 = function() {
+
+        $scope.graphMode2 == 'preset' ? $scope.graphMode2 = 'cose' : $scope.graphMode2 = 'preset';
+
+        $scope.pageMove();
+
+    }
+
     /* 필터링 갱신 함수 */
     $scope.pageMove = function(){
+
+        window.bindEvent = false;
+
+        if($scope.t) {
+            $scope.t.remove();
+            $scope.t = null;
+        }
+
+        if($scope.cy) {
+            $scope.cy.destroy();
+            $scope.cy = null;
+        }
+
+        if(new3Dchart) $(new3Dchart).detach();
+        //$('#chart-container').empty;
 
         var _val = $scope.viewPage.value;
         var _idx = $scope.viewPage.idx;
@@ -197,7 +223,6 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
 
                         if (typeof event.clickNode != 'undefined') {
                             $scope.$apply(function(){
-                                $scope.t.remove();
                                 if(event.clickNode.type == 'police'){
                                     $scope.viewPage = $scope.viewList[1];
                                 }else if(event.clickNode.type == 'future'){
@@ -217,6 +242,48 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
             });
         }
         else if(_idx == 9) {
+
+            $scope.data = {};
+
+            $scope.dataDemo = angular.copy(demoSettings.networkData);
+
+            demoGraph( $scope.dataDemo, $scope.graphMode2 ).then(function( gCy ){
+
+                $scope.cy = gCy;
+
+                $scope.cy.on('mouseover', 'node', function(evt){
+
+                    var node = evt.cyTarget.data();
+                    var _id = evt.cyTarget.id();
+                    var _x = evt.originalEvent.clientX;
+                    var _y = evt.originalEvent.clientY;
+
+                    if(node.properties.admin){
+                        $('.tooltip2').html(
+                            '<table>' +
+                            '<tr><th>종류</th><td>'+ (node.properties.type || '' ) +'</td></tr>'+
+                            '<tr><th>서버명</th><td>'+ (node.properties.name || '' ) +'</td></tr>'+
+                            '<tr><th>IP</th><td>'+ (node.properties.IP || '' ) +'</td></tr>'+
+                            '<tr><th>OS</th><td>'+ (node.properties.OS || '' ) +'</td></tr>'+
+                            '<tr><th>담당자</th><td>'+ (node.properties.admin_name || '' ) +'</td></tr>'+
+                            '<tr><th>연락처</th><td>'+ (node.properties.admin.phone || '' ) +'</td></tr>'+
+                            '</table>'
+                        ).css({
+                                'left' : (_x+10)+'px',
+                                'top' : _y+'px'
+                            }).show();
+                    }
+                });
+                $scope.cy.on('mouseout', 'node', function(evt){
+                    $('.tooltip2').hide();
+                });
+
+                // use this variable to hide ui until cy loaded if you want
+                $scope.cyLoaded = true;
+            });
+
+        }
+        else if(_idx == 10) {
 
             $scope.data = {};
 
@@ -262,7 +329,7 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
                 }
             })
         }
-        else if(_idx == 10) {
+        else if(_idx == 11) {
 
             $scope.data = {};
 
@@ -278,11 +345,14 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
             dataObj  = [nodes,edges];
 
             $scope.search = function() {
+                $scope.$apply(function(){
+                    $scope.nodeName = '';
+                });
                 if(data[0].filter(function (data) { return data.id == $scope.nodeName }).length > 0){
                     $scope.t.remove();
                     drawNewChart(dataObj);
                 }else{
-                    alert('"'+$scope.nodeName+'" 에 해당하는 노드가 없습니다.\n A0~A999 사이의 문자로 다시 입력해 주세요.')
+                    alert('"'+$scope.nodeName+'" 에 해당하는 노드가 없습니다.\n A0~A9999 사이의 문자로 다시 입력해 주세요.')
                 }
             };
 
@@ -373,16 +443,19 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
             drawChart(dataObj);
 
         }
-        else if(_idx == 11) {
-            if($scope.t) $scope.t.remove();
-            if(new3D){
+        else if(_idx == 12) {
+
+            window.bindEvent = true;
+
+            if(!new3Dchart){
                 $.ajax({
                     type: "GET",
-                    url: "./data/test.xgmml",
+                    url: "./xmlData/test.xgmml",
                     dataType: "xml",
                     success: function(data) {
+                        $scope.new3dData = data;
                         window.loader = new TRIPTYCH.BasicGraphLoader();
-                        window.graph = loader.loadXGMML(data);
+                        window.graph = loader.loadXGMML($scope.new3dData);
                         window.visualizer = new TRIPTYCH.WebGLVisualizer();
                         window.layoutEngine = new TRIPTYCH.ForceDirectedLayoutEngine();
                         window.controls = new TRIPTYCH.BasicControls();
@@ -393,12 +466,14 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
                         );
                         space.init();
                         animate();
+                        $('#chart-container').append(new3Dchart);
                     }
 
                 });
                 new3D = false;
             }
             else {
+                $('#chart-container').append(new3Dchart);
             }
         }
         else {
@@ -516,6 +591,9 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
     function clickEvent(event){
 
         if (typeof event.clickNode != 'undefined') {
+            $scope.$apply(function(){
+                $scope.nodeName = event.clickNode.id;
+            });
             $scope.t.remove();
             drawNewChart(dataObj,2,event.clickNode.id);
         }
@@ -525,6 +603,9 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
     function clickEvent2(event){
 
         if (typeof event.clickNode != 'undefined') {
+            $scope.$apply(function(){
+                $scope.nodeName = event.clickNode.id;
+            });
             $scope.t.clearFocus();
             $scope.t.showNode(event.clickNode.id);
             $scope.t.addFocusNode(event.clickNode.id);
@@ -610,14 +691,14 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
         alert('저장 되었습니다.');
         $scope.modalShown = false;
 
-        if(!isSaved && $scope.viewPage.idx != 9){
+        if(!isSaved && $scope.viewPage.idx != 10){
             var _c = angular.copy($scope.addTEmpData);
             for(var item in _c.nodes){
                 AppSettings.networkData.nodes.push(_c.nodes[item]);
                 AppSettings.networkData.links.push(_c.links[item]);
             }
             isSaved = true;
-        }else if(!isSaved2 && $scope.viewPage.idx == 9){
+        }else if(!isSaved2 && $scope.viewPage.idx == 10){
             var count2 = 0 ;
             for(var i = 0 ; i < 3; i++){
                 for (var item in addTEmpData.nodes){
@@ -674,7 +755,7 @@ function HomeCtrl($scope, $timeout, AppSettings, addTEmpData, helloData, createD
             },200)
         }
 
-        if($scope.viewPage.idx == 11) {
+        if($scope.viewPage.idx == 12) {
             var delta = 0;
             if (!event) event = window.event;
             if (event.wheelDelta) {

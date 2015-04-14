@@ -47,7 +47,7 @@ TRIPTYCH.Graph = function(){
 	this.relationships = {};
 	this.maxId = 0;
 	this.startingPosition = new THREE.Vector3(0,0,0);
-	this.changed = false;
+	this.changed = true;
 };
 
 TRIPTYCH.Graph.prototype = {
@@ -615,7 +615,7 @@ TRIPTYCH.Visualizer.prototype = {
 		this.updateTimeLoops();
 		
 		this.updateLights();
-		
+
 		for (var i = 0; i<graph.nodes.length; i++){
 			var node = graph.nodes[i];
 			this.updateNode(node);
@@ -788,9 +788,10 @@ TRIPTYCH.Space.prototype = {
 	init : function(){
 	
 		// if no container is provided, then create one
-		if (!this.container) this.container = document.createElement('div');
-
-		document.getElementById('chart-container').appendChild(this.container);
+		if (!this.container) {
+			this.container = document.createElement('div');
+			window.new3Dchart = this.container;
+		}
 		
 		this.layoutEngine.setGraph(this.graph);
 		
